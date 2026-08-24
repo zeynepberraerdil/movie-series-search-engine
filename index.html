@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zeynep Berra Erdil - Film&amp;Dizi Arama Motoru</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="app">
+
+    <!-- Sinematik Banner -->
+    <header class="hero">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="hero__overlay" aria-hidden="true"></div>
+      <div class="hero__content">
+        <h1 class="hero__title">Zeynep Berra Erdil &mdash; Film&amp;Dizi Arama Motoru</h1>
+        <p class="hero__subtitle">Favori film ve dizilerini keşfet, filtrele ve detaylarını incele.</p>
+      </div>
+    </header>
+
+    <!-- Arama ve Filtreler -->
+    <section class="search-section">
+      <div class="search-section__inner">
+
+        <div class="search-bar">
+          <div class="search-bar__input-wrap">
+            <svg class="search-bar__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+            <input
+              type="search"
+              id="searchInput"
+              class="search-bar__input"
+              placeholder="Film veya dizi ara..."
+              autocomplete="off"
+              aria-label="Film veya dizi ara"
+            >
+          </div>
+          <button type="button" id="searchBtn" class="search-bar__btn" aria-label="Ara">
+            Ara
+          </button>
+        </div>
+
+        <div class="filters" id="filters" role="group" aria-label="İçerik filtreleri"></div>
+
+      </div>
+    </section>
+
+    <!-- Sonuç Sayacı -->
+    <div class="results-meta">
+      <div class="results-meta__inner">
+        <span id="resultsCount" class="results-meta__count"></span>
+      </div>
+    </div>
+
+    <!-- Kart Izgarası -->
+    <main class="content">
+      <div class="content__inner">
+        <div id="cardGrid" class="card-grid" role="list"></div>
+
+        <div id="noResults" class="no-results" hidden>
+          <div class="no-results__icon" aria-hidden="true">
+            <svg viewBox="0 0 80 80" fill="none">
+              <circle cx="36" cy="36" r="24" stroke="currentColor" stroke-width="2.5"/>
+              <path d="M54 54l20 20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M28 36h16M36 28v16" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.35"/>
+            </svg>
+          </div>
+          <p class="no-results__text">Sonuç bulunamadı</p>
+          <p class="no-results__hint">Farklı bir anahtar kelime veya filtre deneyin.</p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__inner">
+        <p class="footer__text">Zeynep Berra Erdil &mdash; Film&amp;Dizi Arama Motoru &copy; 2026</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Detay Modalı -->
+  <div id="modalOverlay" class="modal-overlay" hidden aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button type="button" id="modalClose" class="modal__close" aria-label="Kapat">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <div class="modal__body">
+        <div class="modal__poster-wrap">
+          <img id="modalPoster" class="modal__poster" src="" alt="">
+          <div class="modal__rating-badge" id="modalRatingBadge">
+            <svg class="star-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
+            </svg>
+            <span id="modalRating"></span>
+          </div>
+        </div>
+
+        <div class="modal__info">
+          <div class="modal__type-badge" id="modalType"></div>
+          <h2 id="modalTitle" class="modal__title"></h2>
+          <div class="modal__meta">
+            <span id="modalYear" class="modal__meta-item"></span>
+            <span class="modal__meta-divider">•</span>
+            <span id="modalDuration" class="modal__meta-item"></span>
+            <span class="modal__meta-divider">•</span>
+            <span id="modalGenre" class="modal__meta-item"></span>
+          </div>
+
+          <div class="modal__plot">
+            <span class="modal__detail-label">Konu</span>
+            <p id="modalDescription" class="modal__description"></p>
+          </div>
+
+          <div class="modal__details">
+            <div class="modal__detail-row">
+              <span class="modal__detail-label">Yönetmen</span>
+              <span id="modalDirector" class="modal__detail-value"></span>
+            </div>
+            <div class="modal__detail-row">
+              <span class="modal__detail-label">Oyuncular</span>
+              <span id="modalCast" class="modal__detail-value"></span>
+            </div>
+          </div>
+
+          <button type="button" id="modalBack" class="modal__back" aria-label="Geri dön">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Geri Dön
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
